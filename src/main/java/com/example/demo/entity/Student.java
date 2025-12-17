@@ -3,8 +3,8 @@ package com.example.demo.entity;
 import jakarta.persistence.*;
 
 @Entity
-@Table(name = "users")
-public class User {
+@Table(name = "students")
+public class Student {
 
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -12,8 +12,7 @@ public class User {
 
     private String name;
     private String email;
-    private String password;
-    private String role;
+    private int age;
 
     // getters & setters
 }
