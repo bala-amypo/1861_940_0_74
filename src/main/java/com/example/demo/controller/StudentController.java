@@ -1,38 +1,22 @@
 package com.example.demo.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.PostMapping;
+import org.springframework.web.bind.annotation.RequestBody;
+import org.springframework.web.bind.annotation.RestController;
+import org.springframework.http.ResponseEntity;
 import com.example.demo.entity.Student;
 import com.example.demo.service.StudentService;
-import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
 
 @RestController
-@RequestMapping("/api/students")
 public class StudentController {
+    @Autowired
+    StudentService studentService;
 
-    private final StudentService service;
-
-    public StudentController(StudentService service) {
-        this.service = service;
-    }
-
-    @PostMapping
-    public Student create(@RequestBody Student student) {
-        return service.save(student);
-    }
-
-    @GetMapping
-    public List<Student> getAll() {
-        return service.getAll();
-    }
-
-    @GetMapping("/{id}")
-    public Student getById(@PathVariable Long id) {
-        return service.getById(id);
-    }
-
-    @DeleteMapping("/{id}")
-    public void delete(@PathVariable Long id) {
-        service.delete(id);
+    @PostMapping("/postdata")
+    public ResponseEntity<Student> postdata(@Valid @RequestBody Student student){
+        return new  ResponseEntity<>(studentService.saveStudent(student),HttpStatus.CREATED);
     }
 }
